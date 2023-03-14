@@ -1,0 +1,19 @@
+.modalContainer {
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  width: 50%;
+  margin: auto;
+  height: 100%;
+}
+
+.btn {
+  transition-duration: 0.4s;
+  width: 65px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.btn:hover {
+  background-color: #000000;
+  color: white;
+}
