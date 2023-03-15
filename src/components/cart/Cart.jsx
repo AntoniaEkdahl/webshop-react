@@ -6,6 +6,7 @@ import {
   selectTotalPrice,
   clearCart,
 } from "../../slice/cartSlice";
+import { Trash } from "phosphor-react";
 
 function Cart() {
   const products = useSelector(selectProducts);
@@ -40,15 +41,19 @@ function Cart() {
               <p>{product.quantity}</p>
               <p>${product.price * product.quantity}</p>
             </div>
-            <div className="cartProductRemoveBtn">
-              <button onClick={() => handleRemoveProduct(product)}>
-                Remove
+            <div className="cartRemoveContainer">
+              <button
+                className="cartRemoveBtn"
+                onClick={() => handleRemoveProduct(product)}
+              >
+                <Trash size={24} />
               </button>
             </div>
           </div>
         ))}
         <div className="cartProductTotalPrice">Total: ${totalPrice}</div>
         <button
+          className="cartBtn"
           onClick={() => {
             handleClearCart();
           }}

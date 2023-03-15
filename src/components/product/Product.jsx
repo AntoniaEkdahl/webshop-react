@@ -3,6 +3,7 @@ import ProductModal from "./ProductModal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../slice/cartSlice";
+import { Bag } from "phosphor-react";
 
 const Product = ({ product }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -31,14 +32,20 @@ const Product = ({ product }) => {
           <p>{product.title}</p>
           <p>${product.price}</p>
         </div>
-        <button onClick={() => setIsOpen(true)}>More information</button>
-        <ProductModal
-          handleClose={() => setIsOpen(false)}
-          isOpen={isOpen}
-          product={selectedProduct}
-          key={product.id}
-        />
-        <button onClick={() => addTocart(product)}>Add to cart</button>
+        <div className="btnContainer">
+          <button className="openModalBtn" onClick={() => setIsOpen(true)}>
+            More information
+          </button>
+          <ProductModal
+            handleClose={() => setIsOpen(false)}
+            isOpen={isOpen}
+            product={selectedProduct}
+            key={product.id}
+          />
+          <button className="addToCartBtn" onClick={() => addTocart(product)}>
+            <Bag size={20} />
+          </button>
+        </div>
       </div>
     </>
   );
