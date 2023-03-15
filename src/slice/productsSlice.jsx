@@ -5,6 +5,16 @@ export const productsSlice = createSlice({
   initialState: {
     products: [],
     searchResults: [],
+    searchtText: "",
+    filteredProducts: [],
+  },
+  reducers: {
+    setSearchText: (state, action) => {
+      state.searchText = action.payload;
+    },
+    setFilteredProducts: (state, action) => {
+      state.filteredProducts = action.payload;
+    },
   },
   extraReducers(builder) {
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
@@ -23,4 +33,9 @@ export const fetchProducts = createAsyncThunk(
 );
 
 export const selectProducts = (state) => state.products.products;
+export const selectSearchText = (state) => state.products.searchText;
+export const selectFilteredProducts = (state) =>
+  state.products.filteredProducts;
+export const { setSearchText, setFilteredProducts } = productsSlice.actions;
+
 export default productsSlice.reducer;

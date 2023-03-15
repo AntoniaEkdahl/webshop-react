@@ -1,31 +1,28 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectProducts } from "../../slice/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProducts, setFilteredProducts } from "../../slice/productsSlice";
 import "./Searchbar.css";
 import { MagnifyingGlass } from "phosphor-react";
-import Results from "../product/Results";
 import "../product/Product.css";
+import { setSearchText } from "../../slice/productsSlice";
 
 function Searchbar() {
   const [searchResult, setSearchResult] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
-
+  const dispatch = useDispatch();
   const PRODUCTS = useSelector(selectProducts);
 
-  const onSearchClick = (searchTerm) => {
-    setSearchResult(searchTerm);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchResult(e.target.value);
+  const onSearchClick = (e) => {
+    dispatch(setSearchText(searchResult));
     // Filter the products based on search string
     let resultsArray = PRODUCTS.filter(
       (product) =>
-        product.title.toLowerCase().includes(e.target.value) ||
-        product.description.toLowerCase().includes(e.target.value)
+        product.title.toLowerCase().includes(searchResult) ||
+        product.description.toLowerCase().includes(searchResult)
     );
     //Store the filterd products in state.
-    setFilteredProducts(resultsArray);
+    dispatch(setFilteredProducts(resultsArray));
+
+    setSearchResult("");
   };
 
   return (
@@ -35,14 +32,15 @@ function Searchbar() {
           className="search"
           type="text"
           id="search"
-          onChange={handleSearchChange}
+          onChange={(e) => {
+            setSearchResult(e.target.value);
+          }}
           value={searchResult}
         />
         <button className="btn" onClick={() => onSearchClick(searchResult)}>
           <MagnifyingGlass size={25} />
         </button>
       </div>
-      <Results filteredProducts={filteredProducts} />
     </>
   );
 }

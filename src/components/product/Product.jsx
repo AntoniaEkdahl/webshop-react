@@ -14,9 +14,8 @@ const Product = ({ product }) => {
     setSelectedProduct(product);
   };
 
-  const addTocart = (productId) => {
-    dispatch(addProduct(productId));
-    console.log(productId);
+  const addTocart = (product) => {
+    dispatch(addProduct(product));
   };
 
   return (
@@ -37,8 +36,9 @@ const Product = ({ product }) => {
           handleClose={() => setIsOpen(false)}
           isOpen={isOpen}
           product={selectedProduct}
+          key={product.id}
         />
-        <button onClick={() => addTocart(product.id)}>Add to cart</button>
+        <button onClick={() => addTocart(product)}>Add to cart</button>
       </div>
     </>
   );

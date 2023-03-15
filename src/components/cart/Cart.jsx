@@ -4,6 +4,7 @@ import {
   removeProduct,
   selectProducts,
   selectTotalPrice,
+  clearCart,
 } from "../../slice/cartSlice";
 
 function Cart() {
@@ -15,21 +16,45 @@ function Cart() {
     dispatch(removeProduct(productId));
   };
 
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
+
+  //If cart is empty this will render to user.
+  if (products.length === 0) {
+    return <div className="cartContainerEmpty">Cart is empty...</div>;
+  }
   return (
     <>
       <div className="cartContainer">
-        <h2>Cart</h2>
+        <h1>Cart</h1>
         {products.map((product) => (
-          <div key={product.id}>
-            <p>{product.title}</p>
-            <p>{product.quantity}</p>
-            <p>{product.price * product.quantity}</p>
-            <button onClick={() => handleRemoveProduct(product.id)}>
-              Remove
-            </button>
+          <div key={product.id} className="cartProductContainer">
+            <div className="imgContainer">
+              <img src={product.thumbnail} alt={product.title} />
+            </div>
+            <div className="cartProductInfo">
+              <p>
+                <strong>{product.title}</strong>
+              </p>
+              <p>{product.quantity}</p>
+              <p>${product.price * product.quantity}</p>
+            </div>
+            <div className="cartProductRemoveBtn">
+              <button onClick={() => handleRemoveProduct(product)}>
+                Remove
+              </button>
+            </div>
           </div>
         ))}
-        <div>Total: {totalPrice}</div>
+        <div className="cartProductTotalPrice">Total: ${totalPrice}</div>
+        <button
+          onClick={() => {
+            handleClearCart();
+          }}
+        >
+          Clear cart
+        </button>
       </div>
     </>
   );

@@ -1,13 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectProducts, fetchProducts } from "../../slice/productsSlice";
+import {
+  selectProducts,
+  fetchProducts,
+  selectFilteredProducts,
+} from "../../slice/productsSlice";
 import Product from "./Product";
 
-export default function Results(props) {
+export default function Results() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector(selectProducts);
-
-  const searchedProducts = props.filteredProducts;
+  const searchedProducts = useSelector(selectFilteredProducts);
 
   useEffect(() => {
     if (PRODUCTS.length === 0) {
@@ -17,9 +20,8 @@ export default function Results(props) {
 
   let products;
 
-  if (searchedProducts) {
+  if (searchedProducts.length > 0) {
     products = searchedProducts.map((product) => {
-      console.log(products);
       return <Product key={product.id} product={product} />;
     });
   } else {
