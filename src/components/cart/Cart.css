@@ -12,6 +12,7 @@
   display: flex;
   gap: 100px;
   justify-content: center;
+  padding-right: 150px;
 }
 
 .imgContainer img {
@@ -42,6 +43,8 @@
 }
 
 .cartRemoveBtn {
+  display: flex;
+  justify-content: flex-end;
   background-color: white;
   border: none;
 }

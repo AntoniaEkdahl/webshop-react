@@ -12,6 +12,7 @@ export default function Results() {
   const PRODUCTS = useSelector(selectProducts);
   const searchedProducts = useSelector(selectFilteredProducts);
 
+  //if we dont have any products we will fetch them through productSlice
   useEffect(() => {
     if (PRODUCTS.length === 0) {
       dispatch(fetchProducts());

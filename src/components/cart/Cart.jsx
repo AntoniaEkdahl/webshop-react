@@ -2,19 +2,19 @@ import "./Cart.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   removeProduct,
-  selectProducts,
   selectTotalPrice,
   clearCart,
+  selectCartProducts,
 } from "../../slice/cartSlice";
 import { Trash } from "phosphor-react";
 
 function Cart() {
-  const products = useSelector(selectProducts);
+  const products = useSelector(selectCartProducts);
   const totalPrice = useSelector(selectTotalPrice);
   const dispatch = useDispatch();
 
-  const handleRemoveProduct = (productId) => {
-    dispatch(removeProduct(productId));
+  const handleRemoveProduct = (productID) => {
+    dispatch(removeProduct(productID));
   };
 
   const handleClearCart = () => {
@@ -44,7 +44,7 @@ function Cart() {
             <div className="cartRemoveContainer">
               <button
                 className="cartRemoveBtn"
-                onClick={() => handleRemoveProduct(product)}
+                onClick={() => handleRemoveProduct(product.id)}
               >
                 <Trash size={24} />
               </button>

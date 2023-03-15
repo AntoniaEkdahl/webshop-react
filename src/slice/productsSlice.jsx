@@ -23,10 +23,14 @@ export const productsSlice = createSlice({
   },
 });
 
+// function that will fetch all the products
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     let response = await fetch("https://dummyjson.com/products");
+    if (!response.ok) {
+      return [];
+    }
     let data = await response.json();
     return data.products;
   }

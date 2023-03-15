@@ -11,6 +11,7 @@ const Product = ({ product }) => {
   const dispatch = useDispatch();
 
   //When user click on product it sets the state to that product and pass in the selected product ass the prop.
+  //So modal know which product it is.
   const handleProductClick = (product) => {
     setSelectedProduct(product);
   };
@@ -27,7 +28,7 @@ const Product = ({ product }) => {
           handleProductClick(product);
         }}
       >
-        <img src={product.thumbnail} alt="productImg" />
+        <img src={product.thumbnail} alt={product.title} />
         <div className="description">
           <p>{product.title}</p>
           <p>${product.price}</p>
